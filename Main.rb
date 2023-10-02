@@ -3,7 +3,7 @@
 #   Allows for 5 loans at once per user per session.
 class User
     def initialize
-        @loans = Array.new(5)
+        @loans = []
     end
 
     def get_loans
@@ -51,9 +51,10 @@ class Loan
         @term = term
     end
 
+    # Annuity Formula and rounding to 2 decimal places
     def calc_monthly_payment
-        # Annuity Formula 
         @monthly_payment = (@amount * (@interest / 1200)) / (1 - (1 + (@interest / 1200)) ** -@term)
+        @monthly_payment = @monthly_payment.round(2)
     end
 end
 
@@ -61,9 +62,9 @@ end
 #    A menu class which is used to display the menu.
 #    User input will be used to navigate the menu.
 class Menu
-    def initialize
+    def initialize(user)
         @option = 0
-        @user = User.new
+        @user = user
     end
 
     def get_option
@@ -82,25 +83,36 @@ class Menu
         loan = Loan.new
         puts "----New Loan----"
         print "Amount: "
-        loan.set_amount(gets.chomp.to_i)
+        loan.set_amount(gets.chomp.to_f)
         print "Interest: "
         loan.set_interest(gets.chomp.to_f)
         print "Term (months): "
         loan.set_term(gets.chomp.to_i)
 
         puts "Loan Created"
-        puts "monthly payment: #{loan.calc_monthly_payment}"
         @user.add_loan(loan)
+
     end
 
     def show_loans
+
+        if @user.get_loans.length == 0
+            puts "No Loans"
+            return
+        end
+
         puts "----Show Loans----"
+        i = 1
         @user.get_loans.each do |loan|
+            puts ""
+            
             puts "Amount: #{loan.get_amount}"
             puts "Interest: #{loan.get_interest}"
             puts "Term: #{loan.get_term}"
             puts "Monthly Payment: #{loan.calc_monthly_payment}"
+            
         end
+        puts ""
     end
 end
 
@@ -108,9 +120,9 @@ end
 #    A main class which is used to run the program.
 #    Main has a menu and user.
 class Main
-    def initialize
-        @user = User.new
-        @menu = Menu.new
+    def initialize(user)
+        @user = user
+        @menu = Menu.new(@user)
     end
 
     def main
@@ -120,7 +132,7 @@ class Main
             when 1
                 @menu.new_loan
             when 2
-                puts "Show Loans"
+                @menu.show_loans
             when 3
                 puts "Exit"
             else
@@ -131,5 +143,6 @@ class Main
 end
 
 #    Code to execute the program.
-main = Main.new
+user = User.new
+main = Main.new(user)
 main.main
