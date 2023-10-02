@@ -3,36 +3,42 @@ load 'menu.rb'
 load 'loan.rb'
 load 'calculator.rb'
 
-#    Main:
-#    A main class which is used to run the program.
-#    Main has a menu and user.
-class Main
-    def initialize(user)
-        @user = user
-        @menu = Menu.new(@user)
-    end
-
-    def main
-
-        while @menu.option != 3
-            @menu.show_menu
-            case @menu.option
-            when 1
-                @menu.new_loan
-            when 2
-                @menu.show_loans
-            when 4 
-                @menu.show_amortization
-            when 3
-                puts "Exiting..."
-            else
-                puts "Invalid Option"
-            end
-        end
-    end
-end
-
-#    Code to execute the program.
 user = User.new
-main = Main.new(user)
-main.main
+calc = Calculator.new 
+
+main_menu = Menu.new("WELCOME")
+main_menu.add_menu_item("New Loan")
+main_menu.add_menu_item("Show Loans")
+main_menu.add_menu_item("Amortization")
+
+while main_menu.display != -1
+    case main_menu.option 
+    when 1 
+        loan_menu = Menu.new("loans")
+        loan_menu.add_menu_item("Auto")
+        loan_menu.add_menu_item("Mortgage")
+        loan_menu.add_menu_item("Personal")
+        
+        case loan_menu.display
+        when 1 
+            loan = Auto.new
+        when 2 
+            loan = Mortgage.new
+        when 3
+            loan = Personal.new
+        end 
+        
+        if loan_menu.option != -1 
+            loan.load_values
+            loan.payment = calc.monthly_payment(loan)
+            user.loans.push(loan)
+        end
+
+    when 2 
+        main_menu.show_loan_table(user.loans)
+    when 3 
+        selection = main_menu.show_loan_table(user.loans, selection = true)
+        calc.amortization_table(user.loans[selection])
+    end 
+end 
+        

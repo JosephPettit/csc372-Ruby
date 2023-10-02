@@ -3,18 +3,13 @@
 #    User input will populate the data. 
 class Loan
     # Ruby way of avoiding getter and setter code
-    attr_accessor :amount, :interest, :term
+    attr_accessor :amount, :interest, :term, :payment
 
     def initialize
         @amount 
         @interest 
         @term 
-    end
-
-    # Annuity Formula and rounding to 2 decimal places
-    def calc_monthly_payment
-        @monthly_payment = (@amount * (@interest / 1200)) / (1 - (1 + (@interest / 1200)) ** -@term)
-        @monthly_payment = @monthly_payment.round(2)
+        @payment
     end
 
     # Loads loan values 
@@ -96,13 +91,13 @@ class Mortgage < Loan
     end
 end 
 
-class Auto < Loan 
+class Auto < Loan
     # Not implemented yet, but may be used in the future
     def validate_term
         return (@term >= 12 and @term <= 72 and @term.is_a? Integer)
     end
 end 
 
-class Personal < Loan 
+class Personal < Loan
     
 end 
