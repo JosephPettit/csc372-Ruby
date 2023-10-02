@@ -24,7 +24,7 @@ class Loan
     end 
 end
 
-# Both Mortgage and Auto are children of Loan 
+# Mortgage, Auto and Personal are children of Loan 
 
 class Mortgage < Loan
     def validate_term
