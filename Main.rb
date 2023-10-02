@@ -72,10 +72,11 @@ class Menu
     end
 
     def show_menu
-        puts "----Menu----"
-        puts "1. New Loan"
-        puts "2. Show Loans"
-        puts "3. Exit"
+        puts "-------Menu-------"
+        puts "| 1. New Loan    |"
+        puts "| 2. Show Loans  |"
+        puts "| 3. Exit        |" 
+        puts "------------------"
         @option = gets.chomp.to_i
     end
 
@@ -134,7 +135,7 @@ class Main
             when 2
                 @menu.show_loans
             when 3
-                puts "Exit"
+                puts "Exiting..."
             else
                 puts "Invalid Option"
             end
