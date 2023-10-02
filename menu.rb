@@ -2,7 +2,7 @@
 #    A menu class which is used to display the menu.
 #    User input will be used to navigate the menu.
 class Menu
-    attr_accessor :option, :user
+    attr_accessor :option
 
     def initialize(user)
         @option = 0
@@ -17,6 +17,7 @@ class Menu
         show_menu_item(1, "New Loan")
         show_menu_item(2, "Show Loans")
         show_menu_item(3, "Exit")
+        show_menu_item(4, "Amortization")
         show_footer
         print "Enter selection: "
         @option = gets.chomp.to_i
@@ -53,65 +54,48 @@ class Menu
             loan = Personal.new
         end 
 
-        print "Amount: "
-        loan.amount = gets.chomp.to_f
-        while loan.amount < 1 do 
-            puts "\nInvalid loan amount entered\n"
-            print "Amount: "
-            loan.amount = gets.chomp.to_f
-        end 
-
-        print "Loan terms in months: "
-        loan.term = gets.chomp.to_i
-        until loan.validate_term() do 
-            puts "\nInvalid term entered for #{loan.class} loan\n"
-            if loan.is_a? Mortgage
-                puts "Valid terms = 15, 30"
-            elsif loan.is_a? Auto
-                puts "12 <= Valid terms <= 73"
-            end 
-            print "Loan terms in months: "
-            loan.term = gets.chomp.to_i
-        end
-
-        print "Interest rate: "
-        loan.interest = gets.chomp.to_f
-        while loan.interest < 1 do
-            uts "\nInvalid loan interest rate entered\n"
-            print "Amount: "
-            loan.amount = gets.chomp.to_f
-        end
-
+        loan.load_values 
+        
         @user.loans.push(loan)
     end
 
     def show_loans
 
         if @user.loans.length == 0
-            puts "No Loans"
+            show_header("no loans")
+            print "Any key to return to menu "
+            gets
             return
         end
 
-        puts "----Show Loans----"
-
-        @user.loans.each do |loan|
-            puts "\nAmount: #{loan.amount}"
-            puts "Interest: #{loan.interest}"
-            puts "Term: #{loan.term}"
-            puts "Monthly Payment: #{loan.calc_monthly_payment}"
-            
-        end
-        puts ""
+        show_header("loans")
+        puts "| %-10s %12s %9s %7s %8s" % ["Loan type", "Principal", "Interest", "Months", "Payment"]
+        @user.loans.each_with_index do |item, index| 
+            line = "| %d. %-10s %9.2f %10.2f %6d $%.2f" % [index + 1, item.class, item.amount, item.interest, item.term, item.calc_monthly_payment]
+            offset = @width - line.length
+            right = "%#{offset -1}s" % [@v_char]
+            puts line + right
+        end 
+        show_footer
+        print "Any key to return to menu "
+        gets
     end
 
+    def show_amortization()
+        calc = Calculator.new
+        calc.calc_amortization_table(@user.loans.first)
+    end 
+
+    # Displays a menu header with centered text 
     def show_header(text)
         bar = @h_char * @width
         offset = (@width - text.length) / 2
         left = "%#{offset}s" % [@v_char]
         right = "%-#{offset}s" % [@v_char]
-        puts bar + "\n" + right + text.upcase + left + "\n" + bar
+        puts "\n" + bar + "\n" + right + text.upcase + left + "\n" + bar
     end 
 
+    # Displays menu item 
     def show_menu_item(index, text)
         right = "| %d. " % [index]
         offset = ((@width / 2) - text.length) + ((@width / 2) - right.length)
@@ -120,6 +104,6 @@ class Menu
     end 
 
     def show_footer
-        puts @h_char * @width
+        puts @h_char * @width + "\n"
     end
 end

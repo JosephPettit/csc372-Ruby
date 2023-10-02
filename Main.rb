@@ -1,6 +1,7 @@
 load 'user.rb'
 load 'menu.rb'
 load 'loan.rb'
+load 'calculator.rb'
 
 #    Main:
 #    A main class which is used to run the program.
@@ -20,6 +21,8 @@ class Main
                 @menu.new_loan
             when 2
                 @menu.show_loans
+            when 4 
+                @menu.show_amortization
             when 3
                 puts "Exiting..."
             else
