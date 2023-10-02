@@ -90,6 +90,17 @@ class Menu
 
         puts "Loan Created"
         puts "monthly payment: #{loan.calc_monthly_payment}"
+        @user.add_loan(loan)
+    end
+
+    def show_loans
+        puts "----Show Loans----"
+        @user.get_loans.each do |loan|
+            puts "Amount: #{loan.get_amount}"
+            puts "Interest: #{loan.get_interest}"
+            puts "Term: #{loan.get_term}"
+            puts "Monthly Payment: #{loan.calc_monthly_payment}"
+        end
     end
 end
 
