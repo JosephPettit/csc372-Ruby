@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 load "user.rb"
 load "menu.rb"
 load "loan.rb"

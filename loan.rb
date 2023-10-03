@@ -61,20 +61,15 @@ class Mortgage < Loan
   end
 
   def load_term
-    print "Loan term in years = 1\nLoan term in months = 2\n"
-    selection = gets.chomp
-    if selection.to_i == 1
-      @years = true
-      print "Loan term in years: "
+    print "Loan term in years : "
+    @term = gets.chomp
+    while @term.to_i < 1
+      puts "\nInvalid loan term entered\n"
+      print "Amount: "
+      @term = gets.chomp.to_i
     end
 
-    unless @years
-      print "Loan term in months: "
-    end
-
-    if @years
-      @term.to_i *= 12
-    end
+    @term = @term.to_i * 12 
   end
 
   # Not implemented yet, but may be used in the future

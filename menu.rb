@@ -1,4 +1,3 @@
-
 #    Menu:
 #    A menu class which is used to display the menu.
 #    User input will be used to navigate the menu.
