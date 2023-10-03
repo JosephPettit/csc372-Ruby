@@ -1,3 +1,4 @@
+# Class used to preform basic finance calculations, monthly payment and amortization break down
 class Calculator
   def monthly_payment(loan)
     (loan.amount * (loan.interest / 1200)) / (1 - (1 + (loan.interest / 1200))**-loan.term)
