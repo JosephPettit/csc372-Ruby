@@ -16,10 +16,9 @@ class MenuEdit < Menu
 
       when 2 # Delete item
         edit_menu = Menu.new("Delete Bill")
-        # get index of bill
-        index = edit_menu.show_account_table(@user.loans, selection: true)
+        index = edit_menu.show_account_table(@user.accounts, selection: true)
         unless index == -1
-          @user.loans.delete_at(index - 1)
+          @user.accounts.delete_at(index - 1)
         end
       end
     end

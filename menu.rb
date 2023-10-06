@@ -13,13 +13,13 @@ class Menu
     @name = name
   end
 
-  def display_menu
+  def display_menu(terminal: false)
     show_header(@name)
     @items.each_with_index do |item, index|
       show_menu_item(index + 1, item)
     end
     show_bar
-    @option = validate_menu_selection(selection: true)
+    @option = validate_menu_selection(selection: true, terminal: terminal)
   end
 
   def add_menu_item(item)
@@ -32,19 +32,28 @@ class Menu
       validate_menu_selection(selection: false)
       return -1
     end
+
     show_header("accounts")
-    left = format("| %s", "Name")
-    right = format("%s |", "Amount")
+    left = format("#{@v_char} %s", "Name")
+    right = format("%s #{@v_char}", "Amount")
     center = @width - (left.length + right.length)
     puts left + (" " * center).to_s + right
-    show_bar
+
+    total = 0
 
     accounts.each_with_index do |account, index|
-			left = format("| %d. %s", index + 1 , account.name)
-			right = format("$%.2f |", account.payment)
+      left = format("#{@v_char} %d. %s", index + 1, account.name)
+      right = format("$%.2f #{@v_char}", account.payment)
       center = @width - (left.length + right.length)
       puts left + (" " * center).to_s + right
+      total += account.payment
     end
+
+    show_bar
+    left = format(@v_char.to_s)
+    right = format("total = $%.2f #{@v_char}", total)
+    center = @width - (left.length + right.length)
+    puts left + (" " * center).to_s + right
 
     show_bar
     validate_menu_selection(length: accounts.length, selection: selection)
@@ -52,22 +61,21 @@ class Menu
 
   def show_loan_table(loans, selection: false)
     if loans.empty?
-      show_header("no loans")
+      show_header("No Debts")
       validate_menu_selection(selection: false)
       return -1
     end
-    show_header("loans")
-    puts format("| %-10s %12s %9s %7s %8s", "Loan type", "Principal", "Interest", "Months", "Payment")
-    # loans.each_with_index do |item, index|
+    show_header("Debts")
+    puts format("#{@v_char} %-10s %12s %9s %7s %8s", "Loan type", "Principal", "Interest", "Months", "Payment")
     l = loans.select { |item| item.is_a? Loan }
     l.each_with_index { |item, index|
-      line = format("| %d. %-10s %9.2f %10.2f %6d $%.2f", index + 1, item.class, item.amount, item.interest, item.term,
+      line = format("#{@v_char} %d. %-10s %9.2f %10.2f %6d $%.2f", index + 1, item.name, item.amount, item.interest, item.term,
         item.payment)
       offset = @width - line.length
       right = format("%#{offset - 1}s", @v_char)
       puts line + right
     }
-    # puts l.inspect
+
     show_bar
     validate_menu_selection(length: loans.length, selection: selection)
   end
@@ -93,11 +101,15 @@ class Menu
     puts "#{@h_char * @width}\n"
   end
 
-  def validate_menu_selection(length: nil, selection: true)
+  def validate_menu_selection(length: nil, selection: true, terminal: false)
     length = @items.length if length.nil?
 
     if selection
-      print "Enter selection, -1 to quit: "
+      if terminal
+        print "Enter selection, -1 to quit: "
+      else
+        print "Enter selection, -1 to go back: "
+      end
     else
       print "Any key to continue "
     end
