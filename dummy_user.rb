@@ -5,9 +5,9 @@ class Dummy
     auto = Auto.new
     auto.name = "Auto loan"
     auto.term = 36
-    auto.amount = 25000
-    auto.payment = 54.50
-    auto.interest = 24
+    auto.amount = 25000.0
+    auto.interest = 24.0
+    auto.payment = Calculator.monthly_payment(auto)
 
     electric = Bill.new
     electric.name = "electric"

@@ -3,7 +3,7 @@
 #    User input will be used to navigate the menu.
 class Menu
   attr_accessor :option
-
+  attr_reader :width, :h_char, :v_char
   def initialize(name)
     @option = 0
     @width = 60
@@ -67,14 +67,13 @@ class Menu
 		end
 
     show_header("Debts")
-    puts format("#{@v_char} %-10s %12s %9s %7s %8s", "Loan type", "Principal", "Interest", "Months", "Payment")
-
+    line = format(" %-10s %12s %9s %7s %8s", "Loan type", "Principal", "Interest", "Months", "Payment")
+    print_item(line)
+    
 		  loans.each_with_index do |item, index|
-        line = format("#{@v_char} %d. %-10s %9.2f %10.2f %6d $%.2f", index + 1, item.name, item.amount, item.interest, item.term,
+        line = format(" %d. %-10s %9.2f %10.2f %6d $%.2f", index + 1, item.name, item.amount, item.interest, item.term,
           item.payment)
-        offset = @width - line.length
-        right = format("%#{offset - 1}s", @v_char)
-        puts line + right
+        print_item(line)
   			end
 
     show_bar
@@ -125,5 +124,12 @@ class Menu
     end
 
     @option = option
+  end
+
+  def print_item(item)
+    left = ("#{@v_char} #{item}")
+    right = "#{@v_char}"
+    center = @width - (left.length + right.length)
+    puts left + (" " * center).to_s + right
   end
 end

@@ -22,11 +22,14 @@ class MenuUser < Menu
           end
         end
         show_loan_table(loans, selection: false)
-      when 3
+      when 3 # Show Amortization Table
         loans = @user.accounts.select { |item| item.is_a? Loan and !item.is_a? CreditCard }
         puts loans.inspect
         index = show_loan_table(loans, selection: true)
-        Calculator.amortization_table(loans[index - 1])
+        unless index == -1
+          amor_display = Menu.new("Amortization Table")
+          Calculator.amortization_table(loans[index - 1], amor_display)
+        end
       when 4 # Edit budget
         edit_menu = MenuEdit.new(@user)
         edit_menu.display_menu
