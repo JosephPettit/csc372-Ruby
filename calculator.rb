@@ -2,7 +2,7 @@
 class Calculator
 
    def self.monthly_payment(loan)
-     (loan.amount * (loan.interest / 1200)) / (1 - (1 + (loan.interest / 1200))**-loan.term)
+		 return (loan.amount * (loan.interest / 1200)) / (1 - (1 + (loan.interest / 1200))** - loan.term)
    end
 
    def self.amortization_table(loan)

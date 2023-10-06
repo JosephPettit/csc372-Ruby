@@ -23,8 +23,7 @@ class MenuNew < Menu
 
     if bill
       bill.load_values
-      if bill.is_a? Loan
-				puts "loan"
+      if bill.is_a? Loan and not bill.is_a? CreditCard
 				bill.payment = Calculator.monthly_payment(bill)
         @user.loans.push(bill)
 			else
