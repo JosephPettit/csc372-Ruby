@@ -5,7 +5,7 @@ class Menu
   attr_accessor :option
 
   def initialize(name)
-    @option = -1
+    @option = 0
     @width = 60
     @h_char = "-"
     @v_char = "|"
@@ -19,12 +19,16 @@ class Menu
       show_menu_item(index + 1, item)
     end
     show_footer
-    @option = validate_menu_selection
+    @option = validate_menu_selection(selection: true)
   end
 
   def add_menu_item(item)
     @items.push(item)
-  end
+	end
+
+	def add_menu_list(list)
+		@items = list.dup
+	end
 
   def show_loan_table(loans, selection: false)
     if loans.empty?
@@ -37,7 +41,7 @@ class Menu
     puts format("| %-10s %12s %9s %7s %8s", "Loan type", "Principal", "Interest", "Months", "Payment")
     loans.each_with_index do |item, index|
       line = format("| %d. %-10s %9.2f %10.2f %6d $%.2f", index + 1, item.class, item.amount, item.interest, item.term,
-                    item.payment)
+        item.payment)
       offset = @width - line.length
       right = format("%#{offset - 1}s", @v_char)
       puts line + right
@@ -69,9 +73,7 @@ class Menu
   end
 
   def validate_menu_selection(length: nil, selection: true)
-    if length.nil?
-      length = @items.length
-    end
+    length = @items.length if length.nil?
 
     if selection
       print "Enter selection, -1 to quit: "
@@ -80,11 +82,14 @@ class Menu
     end
 
     option = gets.chomp.to_i
-    while !selection && ((option < 0) || (option > length)) && (option != -1)
-      print "\n invalid selection \n"
-      print "Enter selection, -1 to quit: "
-      option = gets.chomp.to_i
+    if selection
+      while (option <= 0 || option > length) && option != -1
+        print "\n invalid selection \n"
+        print "Enter selection, -1 to quit: "
+        option = gets.chomp.to_i
+      end
     end
+
     @option = option
   end
 end
