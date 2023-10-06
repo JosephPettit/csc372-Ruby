@@ -10,11 +10,11 @@ class MenuEdit < Menu
   def display_menu
     until @option == -1
       case super
-      when 1 # New item
+      when 1 ##### New item #####
         new_bill_menu = MenuNew.new(@user)
         new_bill_menu.display_menu
 
-      when 2 # Delete item
+      when 2 ##### Delete item #####
         edit_menu = Menu.new("Delete Bill")
         index = edit_menu.show_account_table(@user.accounts, selection: true)
         unless index == -1

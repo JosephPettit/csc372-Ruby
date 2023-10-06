@@ -11,10 +11,10 @@ class MenuUser < Menu
   def display_menu
     until @option == -1
       case super
-      when 1 # Show budget
-        puts @user.accounts.inspect
+      when 1 ##### Show budget ######
         show_account_table(@user.accounts)
-      when 2 # Show debt
+
+      when 2 ###### Show debt #####
         loans = @user.accounts.select { |item| item.is_a? Loan }
         loans.each do |item|
           if item.is_a? CreditCard
@@ -22,15 +22,16 @@ class MenuUser < Menu
           end
         end
         show_loan_table(loans, selection: false)
-      when 3 # Show Amortization Table
+
+      when 3 ##### Show Amortization Table #####
         loans = @user.accounts.select { |item| item.is_a? Loan and !item.is_a? CreditCard }
-        puts loans.inspect
         index = show_loan_table(loans, selection: true)
         unless index == -1
           amor_display = Menu.new("Amortization Table")
           Calculator.amortization_table(loans[index - 1], amor_display)
         end
-      when 4 # Edit budget
+        
+      when 4 ##### Edit budget #####
         edit_menu = MenuEdit.new(@user)
         edit_menu.display_menu
       end

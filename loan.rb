@@ -15,7 +15,7 @@ class Loan
 
   # loads and validates loan term
   def load_term
-    print "Term: "
+    print "Enter loan term in months: "
     @term = gets.chomp.to_i
     while @term.to_i < 1
       puts "\nInvalid loan term entered\n"
@@ -26,7 +26,7 @@ class Loan
 
   # loads and validates loan amount
   def load_amount
-    print "Amount: "
+    print "Enter amount of loan: "
     @amount = gets.chomp.to_f
     while @amount < 1
       puts "\nInvalid loan amount entered\n"
@@ -37,7 +37,7 @@ class Loan
 
   # loads and validates loan interest rate
   def load_interest_rate
-    print "Interest rate: "
+    print "Enter interest rate (12.4% -> 12.4): "
     @interest = gets.chomp.to_f
     while @interest < 1
       puts "\nInvalid loan interest rate entered\n"

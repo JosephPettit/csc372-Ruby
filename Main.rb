@@ -9,14 +9,16 @@ main_menu.add_menu_item("Load test user")
 until main_menu.option == -1
   main_menu.display_menu(terminal: true)
   case main_menu.option
-  when 1
+  when 1 ##### User Menu #####
     user_menu = MenuUser.new(@user)
     user_menu.display_menu
-  when 2
+    
+  when 2 ##### Finance Calc Menu #####
 		calc_menu = MenuCalc.new
 		calc_menu.display_menu
-  when 3
-    load "t.rb"
+
+  when 3 ##### Load Dummy User #####
+    load "dummy_user.rb"
     d = Dummy.new
     @user.accounts = d.accounts
 		main_menu.show_header("Test user loaded")
