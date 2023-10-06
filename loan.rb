@@ -8,9 +8,9 @@ class Loan
     load_amount
     load_term
     load_interest_rate
-		if @name.nil?
-			@name = self.class.to_s + " loan"
-		end
+    if @name.nil?
+      @name = self.class.to_s + " loan"
+    end
   end
 
   # loads and validates loan term

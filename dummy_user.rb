@@ -17,11 +17,11 @@ class Dummy
     water.name = "water"
     water.payment = 45.25
 
-		card = CreditCard.new
-		card.name = "Chase"
-		card.amount = 250
-		card.payment = 24.50
-		card.interest = 24
+    card = CreditCard.new
+    card.name = "Chase"
+    card.amount = 250
+    card.payment = 24.50
+    card.interest = 24
 
     @accounts = [auto, electric, water, card]
   end

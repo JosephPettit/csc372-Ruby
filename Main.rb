@@ -12,16 +12,16 @@ until main_menu.option == -1
   when 1 ##### User Menu #####
     user_menu = MenuUser.new(@user)
     user_menu.display_menu
-    
+
   when 2 ##### Finance Calc Menu #####
-		calc_menu = MenuCalc.new
-		calc_menu.display_menu
+    calc_menu = MenuCalc.new
+    calc_menu.display_menu
 
   when 3 ##### Load Dummy User #####
     load "dummy_user.rb"
     d = Dummy.new
     @user.accounts = d.accounts
-		main_menu.show_header("Test user loaded")
+    main_menu.show_header("Test user loaded")
   end
 end
 

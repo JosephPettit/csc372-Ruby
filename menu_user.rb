@@ -30,7 +30,7 @@ class MenuUser < Menu
           amor_display = Menu.new("Amortization Table")
           Calculator.amortization_table(loans[index - 1], amor_display)
         end
-        
+
       when 4 ##### Edit budget #####
         edit_menu = MenuEdit.new(@user)
         edit_menu.display_menu

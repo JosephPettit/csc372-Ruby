@@ -4,6 +4,7 @@
 class Menu
   attr_accessor :option
   attr_reader :width, :h_char, :v_char
+
   def initialize(name)
     @option = 0
     @width = 60
@@ -51,7 +52,7 @@ class Menu
 
     show_bar
     left = format(@v_char.to_s)
-    right = format("total = $%.2f #{@v_char}", total)
+    right = format("Total = $%.2f #{@v_char}", total)
     center = @width - (left.length + right.length)
     puts left + (" " * center).to_s + right
 
@@ -64,17 +65,16 @@ class Menu
       show_header("No Debts")
       validate_menu_selection(selection: false)
       return -1
-		end
+    end
 
     show_header("Debts")
     line = format(" %-10s %12s %9s %7s %8s", "Loan type", "Principal", "Interest", "Months", "Payment")
     print_item(line)
-    
-		  loans.each_with_index do |item, index|
-        line = format(" %d. %-10s %9.2f %10.2f %6d $%.2f", index + 1, item.name, item.amount, item.interest, item.term,
-          item.payment)
-        print_item(line)
-  			end
+
+    loans.each_with_index do |item, index|
+      line = format(" %d. %-10s %9.2f %10.2f %6d $%.2f", index + 1, item.name, item.amount, item.interest, item.term, item.payment)
+      print_item(line)
+    end
 
     show_bar
     validate_menu_selection(length: loans.length, selection: selection)
@@ -127,8 +127,8 @@ class Menu
   end
 
   def print_item(item)
-    left = ("#{@v_char} #{item}")
-    right = "#{@v_char}"
+    left = "#{@v_char} #{item}"
+    right = @v_char.to_s
     center = @width - (left.length + right.length)
     puts left + (" " * center).to_s + right
   end

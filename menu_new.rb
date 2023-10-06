@@ -23,10 +23,10 @@ class MenuNew < Menu
 
     if bill
       bill.load_values
-      if bill.is_a? Loan and not bill.is_a? CreditCard
-				bill.payment = Calculator.monthly_payment(bill)
-			end
-				@user.accounts.push(bill)
+      if bill.is_a?(Loan) && (!bill.is_a? CreditCard)
+        bill.payment = Calculator.monthly_payment(bill)
+      end
+      @user.accounts.push(bill)
 
       puts "\nBill successfully added to budget"
     end
