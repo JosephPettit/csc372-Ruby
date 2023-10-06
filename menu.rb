@@ -39,7 +39,7 @@ class Menu
     right = format("%s #{@v_char}", "Amount")
     center = @width - (left.length + right.length)
     puts left + (" " * center).to_s + right
-
+		show_bar
     total = 0
 
     accounts.each_with_index do |account, index|

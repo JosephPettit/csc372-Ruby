@@ -22,6 +22,7 @@ until main_menu.option == -1
     d = Dummy.new
     @user.accounts = d.accounts
     main_menu.show_header("Test user loaded")
+    main_menu.validate_menu_selection(selection:false)
   end
 end
 

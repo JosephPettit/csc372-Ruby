@@ -47,23 +47,7 @@ class Loan
   end
 end
 
-# Mortgage, Auto and Personal are children of Loan
-class Mortgage < Loan
-  attr_accessor :years
-
-  def load_term
-    print "Loan term in years : "
-    @term = gets.chomp
-    while @term.to_i < 1
-      puts "\nInvalid loan term entered\n"
-      print "Amount: "
-      @term = gets.chomp.to_i
-    end
-
-    @term = @term.to_i * 12
-  end
-end
-
+# Auto and Personal are children of Loan
 class Auto < Loan
 end
 
