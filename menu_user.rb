@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-class UserMenu < Menu
+load "menu.rb"
+class MenuUser < Menu
   def initialize(user)
     super "Personal Budget"
     @items = ["Show Budget", "Show Debt", "Edit Budget"]
@@ -8,15 +9,18 @@ class UserMenu < Menu
   end
 
   def display_menu
+		until @option == -1
     case super
-    when 1
-      # show budget
-      puts @user.nil?
+		when 1 # Show Budget
+			puts @user.loans.inspect
+			show_account_table(@user.loans)
     when 2
-    # show debt
+			loans = @user.loans.select { |item| item.is_a? Loan }
+      show_loan_table(loans, selection: false)
     when 3
-      bill_menu = BillMenu.new(@user)
-      bill_menu.display_menu
+      edit_menu = MenuEdit.new(@user)
+      edit_menu.display_menu
     end
-  end
+	end
+	end
 end

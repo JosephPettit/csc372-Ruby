@@ -18,17 +18,37 @@ class Menu
     @items.each_with_index do |item, index|
       show_menu_item(index + 1, item)
     end
-    show_footer
+    show_bar
     @option = validate_menu_selection(selection: true)
   end
 
   def add_menu_item(item)
     @items.push(item)
-	end
+  end
 
-	def add_menu_list(list)
-		@items = list.dup
-	end
+  def show_account_table(accounts, selection: false)
+    if accounts.empty?
+      show_header("no accounts")
+      validate_menu_selection(selection: false)
+      return -1
+    end
+    show_header("accounts")
+    left = format("| %s", "Name")
+    right = format("%s |", "Amount")
+    center = @width - (left.length + right.length)
+    puts left + (" " * center).to_s + right
+    show_bar
+
+    accounts.each_with_index do |account, index|
+			left = format("| %d. %s", index + 1 , account.name)
+			right = format("$%.2f |", account.payment)
+      center = @width - (left.length + right.length)
+      puts left + (" " * center).to_s + right
+    end
+
+    show_bar
+    validate_menu_selection(length: accounts.length, selection: selection)
+  end
 
   def show_loan_table(loans, selection: false)
     if loans.empty?
@@ -36,18 +56,19 @@ class Menu
       validate_menu_selection(selection: false)
       return -1
     end
-
     show_header("loans")
     puts format("| %-10s %12s %9s %7s %8s", "Loan type", "Principal", "Interest", "Months", "Payment")
-    loans.each_with_index do |item, index|
+    # loans.each_with_index do |item, index|
+    l = loans.select { |item| item.is_a? Loan }
+    l.each_with_index { |item, index|
       line = format("| %d. %-10s %9.2f %10.2f %6d $%.2f", index + 1, item.class, item.amount, item.interest, item.term,
         item.payment)
       offset = @width - line.length
       right = format("%#{offset - 1}s", @v_char)
       puts line + right
-    end
-
-    show_footer
+    }
+    # puts l.inspect
+    show_bar
     validate_menu_selection(length: loans.length, selection: selection)
   end
 
@@ -68,7 +89,7 @@ class Menu
     puts right + text + left
   end
 
-  def show_footer
+  def show_bar
     puts "#{@h_char * @width}\n"
   end
 

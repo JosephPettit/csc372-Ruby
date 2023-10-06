@@ -1,4 +1,14 @@
-# frozen_string_literal: true
+j = ["test", "one", "two"]
+puts j
 
-class T
+user = 3
+
+class Dummy
+	attr_accessor :arr
+
+	def initialize
+		@arr = ["test", "one", "two"]
+
+	end
+
 end

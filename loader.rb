@@ -1,5 +1,3 @@
-
-
 load "user.rb"
 load "menu_user.rb"
 load "menu_edit.rb"
