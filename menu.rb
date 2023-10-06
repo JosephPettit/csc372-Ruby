@@ -64,17 +64,18 @@ class Menu
       show_header("No Debts")
       validate_menu_selection(selection: false)
       return -1
-    end
+		end
+
     show_header("Debts")
     puts format("#{@v_char} %-10s %12s %9s %7s %8s", "Loan type", "Principal", "Interest", "Months", "Payment")
-    l = loans.select { |item| item.is_a? Loan }
-    l.each_with_index { |item, index|
-      line = format("#{@v_char} %d. %-10s %9.2f %10.2f %6d $%.2f", index + 1, item.name, item.amount, item.interest, item.term,
-        item.payment)
-      offset = @width - line.length
-      right = format("%#{offset - 1}s", @v_char)
-      puts line + right
-    }
+
+		  loans.each_with_index do |item, index|
+        line = format("#{@v_char} %d. %-10s %9.2f %10.2f %6d $%.2f", index + 1, item.name, item.amount, item.interest, item.term,
+          item.payment)
+        offset = @width - line.length
+        right = format("%#{offset - 1}s", @v_char)
+        puts line + right
+  			end
 
     show_bar
     validate_menu_selection(length: loans.length, selection: selection)
