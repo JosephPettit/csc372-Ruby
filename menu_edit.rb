@@ -2,7 +2,7 @@
 #
 # Description:
 #    Menu for editing budget
-
+#
 # frozen_string_literal: true
 
 class MenuEdit < Menu

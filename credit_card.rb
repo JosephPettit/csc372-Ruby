@@ -6,6 +6,7 @@
 load "loan.rb"
 
 class CreditCard < Loan
+  
   attr_accessor :name
 
   # Calls all functions to get credit card information

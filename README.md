@@ -76,14 +76,9 @@ end
 Ruby has until loops that are identical to a while loop, but runs while false. 
 
 ```ruby 
-until false do 
-    # infinite loop
-end 
-
-while true do 
-    # equivalent loop
-end 
-
+until main_menu.option == -1
+    # Main menu loop
+end
 ``` 
 
 ### Magic Comments
@@ -101,35 +96,31 @@ This is an example of a magic comment. This will cause Ruby to always treat two 
 In Ruby everything is an object, and the type of object doesn't matter as long as that object has the attributes or methods needed.
 
 ```ruby 
-class 
-    @name = Copper 
-    def speak
-        puts "I'm a hound dog"
+class MenuCalc < Menu
+    def display_menu
+        puts "This is the Calc Menu"
     end
 end 
 
-class Fox 
-    @name = Tod 
-    def speak
-        puts "I'm a fox"
-    end 
+class MenuUser < Menu
+    def display_menu
+        puts "This is the User Menu"
+    end
 end 
 
-def who_are_you(somebody)
-    puts "My name is #{somebody.name}"
-    somebody.speak
+def who_are_you(menu)
+    menu.display_menu
 end
 
-doggo = Dog.new
-foxy = Fox.new
+calc = MenuCalc.new
+user = MenuUser.new
 
-who_are_you(doggo) 
-# My name is Copper
-# I'm a hound dog
+who_are_you(calc) 
+# This is the Calc Menu
 
-who_are_you(foxy)
-# My name is Tod
-# I'm a Fox
+who_are_you(user)
+# This is the User Menu
+
 ```
 
 in the example above, the function who_are_you doesn't know / care what type of object is passed in. All that matters is that it has a name attribute and the speak method. 
