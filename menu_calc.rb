@@ -1,11 +1,18 @@
+# Class: MenuCalc
+#
+# Description:
+#    Menu for finance calculator
+#
 # frozen_string_literal: true
 
 class MenuCalc < Menu
+
   def initialize
     super "Finance Calculator"
     @items = ["Calculate Loan Monthly Payments", "Amortization Calculator"]
   end
 
+  # Displays menu and handles user input
   def display_menu(terminal: nil)
     until @option == -1
       case super
@@ -25,6 +32,7 @@ class MenuCalc < Menu
     end
   end
 
+  # Displays results of monthly payment calculation
   def show_payment_results(loan)
     show_bar
     print_item(format("Loan Amount = $%.2f", loan.amount))

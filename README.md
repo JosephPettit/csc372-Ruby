@@ -86,6 +86,16 @@ end
 
 ``` 
 
+### Magic Comments
+
+In Ruby, special "magic" comments contain directives that change the way code is interpreted.
+
+```ruby
+# frozen_string_literal: true
+```
+
+This is an example of a magic comment. This will cause Ruby to always treat two similar strings as distinct objects.
+
 ### Duck Typing 
 
 In Ruby everything is an object, and the type of object doesn't matter as long as that object has the attributes or methods needed.

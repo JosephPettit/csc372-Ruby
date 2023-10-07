@@ -1,13 +1,20 @@
+# Class: MenuUser
+#
+# Description:
+#    Menu for user to view budget or edit budget
+#
 # frozen_string_literal: true
 
 load "menu.rb"
 class MenuUser < Menu
+
   def initialize(user)
     super "Personal Budget"
     @items = ["Show Budget", "Show Debt", "Show Amortization Table", "Edit Budget"]
     @user = user
   end
 
+  # Displays menu and handles user input
   def display_menu
     until @option == -1
       case super

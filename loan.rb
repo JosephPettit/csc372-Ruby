@@ -1,8 +1,13 @@
-#    Loan:
+# Class: Loan
+#
+# Description:
 #    A loan class which is used to save loan data.
 #    User input will populate the data.
+
 class Loan
+  
   attr_accessor :amount, :term, :interest, :payment, :name
+
   # Loads loan values
   def load_values
     load_amount

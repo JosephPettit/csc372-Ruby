@@ -1,12 +1,19 @@
+# Class: MenuEdit
+#
+# Description:
+#    Menu for editing budget
+
 # frozen_string_literal: true
 
 class MenuEdit < Menu
+
   def initialize(user)
     super "Edit Budget"
     @items = ["New Bill", "Delete Bill"]
     @user = user
   end
 
+  # Displays menu and handles user input
   def display_menu
     until @option == -1
       case super

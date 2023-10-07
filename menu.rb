@@ -1,7 +1,11 @@
-#    Menu:
-#    A menu class which is used to display the menu.
-#    User input will be used to navigate the menu.
+# Class: Menu
+#
+# Description:
+#    Menu class for displaying menus and getting user input
+#    from the terminal
+
 class Menu
+
   attr_accessor :option
   attr_reader :width, :h_char, :v_char
 
@@ -14,6 +18,7 @@ class Menu
     @name = name
   end
 
+  # Displays menu and handles user input
   def display_menu(terminal: false)
     show_header(@name)
     @items.each_with_index do |item, index|
@@ -27,6 +32,7 @@ class Menu
     @items.push(item)
   end
 
+  # Shows table of accounts (or no accounts if none)
   def show_account_table(accounts, selection: false)
     if accounts.empty?
       show_header("no accounts")
@@ -60,6 +66,7 @@ class Menu
     validate_menu_selection(length: accounts.length, selection: selection)
   end
 
+  # Shows table of loans (or no loans if none)
   def show_loan_table(loans, selection: false)
     if loans.empty?
       show_header("No Debts")
@@ -97,10 +104,12 @@ class Menu
     puts right + text + left
   end
 
+  # Displays a horizontal bar for menu
   def show_bar
     puts "#{@h_char * @width}\n"
   end
 
+  # Gets user menu input and validates it
   def validate_menu_selection(length: nil, selection: true, terminal: false)
     length = @items.length if length.nil?
 
@@ -126,6 +135,7 @@ class Menu
     @option = option
   end
 
+  # Prints item with vertical bar on left and right
   def print_item(item)
     left = "#{@v_char} #{item}"
     right = @v_char.to_s
