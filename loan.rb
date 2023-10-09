@@ -52,9 +52,12 @@ class Loan
   end
 end
 
-# Auto and Personal are children of Loan
+
 class Auto < Loan
 end
 
 class Personal < Loan
+end
+
+class Mortgage < Loan
 end

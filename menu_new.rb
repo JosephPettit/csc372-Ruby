@@ -24,6 +24,8 @@ class MenuNew < Menu
       bill = Auto.new
     when 4
       bill = Personal.new
+    when 5
+      bill = Mortgage.new
     end
 
     if bill
