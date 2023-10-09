@@ -9,7 +9,7 @@ class MenuEdit < Menu
 
   def initialize(user)
     super "Edit Budget"
-    @items = ["New Bill", "Delete Bill"]
+    @items = ["New Bill", "Delete Bill", "Delete All Bills"]
     @user = user
   end
 
@@ -27,6 +27,10 @@ class MenuEdit < Menu
         unless index == -1
           @user.accounts.delete_at(index - 1)
         end
+
+      when 3 ##### Delete all items #####
+        @user.accounts = []
+        show_account_table(@user.accounts)
       end
     end
   end
