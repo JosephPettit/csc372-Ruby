@@ -1,12 +1,19 @@
+# Class: MenuNew
+#
+# Description:
+#    Menu for adding new bills to budget
+#
 # frozen_string_literal: true
 
 class MenuNew < Menu
+
   def initialize(user)
     super "Bills"
     @items = ["Utility Bill / Monthly reoccurring", "Credit Card", "Auto", "Personal", "Mortgage"]
     @user = user
   end
 
+  # Displays menu and handles user input
   def display_menu
     case super
     when 1
@@ -17,6 +24,8 @@ class MenuNew < Menu
       bill = Auto.new
     when 4
       bill = Personal.new
+    when 5
+      bill = Mortgage.new
     end
 
     if bill

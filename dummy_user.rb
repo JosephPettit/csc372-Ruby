@@ -1,4 +1,10 @@
+# Class: Dummy
+#
+# Description:
+#   Creates dummy user for testing purposes
+
 class Dummy
+  
   attr_accessor :accounts
 
   def initialize

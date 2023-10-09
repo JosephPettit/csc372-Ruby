@@ -1,9 +1,17 @@
-# Class used to preform basic finance calculations, monthly payment and amortization break down
+# Class: Calculator
+#
+# Description:
+#   Class used to preform basic finance calculations, monthly 
+#   payment and amortization break down
+
 class Calculator
+
+  # Calculates monthly payment for loan
   def self.monthly_payment(loan)
     (loan.amount * (loan.interest / 1200)) / (1 - (1 + (loan.interest / 1200))**-loan.term)
   end
 
+  # Calculate and display amortization table for loan
   def self.amortization_table(loan, menu)
     show_table_header(menu)
     payment = loan.payment
@@ -33,6 +41,7 @@ class Calculator
     menu.validate_menu_selection(selection: false)
   end
 
+  # Displays header for amortization table
   def self.show_table_header(menu)
     menu.show_header("Amortization Table")
     line = format(" %s  ( %s + %s = %s )  %s", "Starting", "Principal", "Interest", "Payment", "Balance")

@@ -1,8 +1,13 @@
-#    Loan:
+# Class: Loan
+#
+# Description:
 #    A loan class which is used to save loan data.
 #    User input will populate the data.
+
 class Loan
+  
   attr_accessor :amount, :term, :interest, :payment, :name
+
   # Loads loan values
   def load_values
     load_amount
@@ -47,9 +52,12 @@ class Loan
   end
 end
 
-# Auto and Personal are children of Loan
+
 class Auto < Loan
 end
 
 class Personal < Loan
+end
+
+class Mortgage < Loan
 end
