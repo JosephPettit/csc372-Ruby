@@ -90,9 +90,13 @@ class Menu
   # Displays a menu header with centered text
   def show_header(text)
     bar = @h_char * @width
-    offset = (@width - text.length) / 2
-    left = format("%#{offset}s", @v_char)
-    right = format("%-#{offset}s", @v_char)
+    total_padding = @width - text.length
+    left_padding = total_padding / 2
+    right_padding = total_padding - left_padding
+    
+    left = format("%#{left_padding}s", @v_char)
+    right = format("%-#{right_padding}s", @v_char)
+  
     puts "\n#{bar}\n#{right}#{text.upcase}#{left}\n#{bar}"
   end
 
