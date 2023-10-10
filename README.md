@@ -2,6 +2,10 @@
 
 ## John Gumm & Joe Pettit
 
+### Video link
+
+https://youtu.be/980ixaKptzU
+
 ### Program overview
 
 Basic menu to store loan information, calculate monthly payments, calculate amortization table.
