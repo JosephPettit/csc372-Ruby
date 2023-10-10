@@ -79,7 +79,7 @@ In Ruby, special "magic" comments contain directives that change the way code is
 # frozen_string_literal: true
 ```
 
-This is an example of a magic comment. This will cause Ruby to always treat two similar strings as distinct objects.
+This is an example of a magic comment. This will make all strings immutable. 
 
 ### Duck Typing
 
@@ -94,7 +94,7 @@ In Ruby everything is an object, and the type of object doesn't matter as long a
       return -1
     end
 
-	# Formating code here 
+	  # Formating code here 
  	
     total = 0
 
@@ -106,7 +106,7 @@ In Ruby everything is an object, and the type of object doesn't matter as long a
       total += account.payment
     end
 
-	# More formatting code here
+	  # More formatting code here
 
   end
 
