@@ -94,12 +94,8 @@ In Ruby everything is an object, and the type of object doesn't matter as long a
       return -1
     end
 
-    show_header("accounts")
-    left = format("#{@v_char} %s", "Name")
-    right = format("%s #{@v_char}", "Amount")
-    center = @width - (left.length + right.length)
-    puts left + (" " * center).to_s + right
-		show_bar
+	# Formating code here 
+ 	
     total = 0
 
     accounts.each_with_index do |account, index|
@@ -110,14 +106,8 @@ In Ruby everything is an object, and the type of object doesn't matter as long a
       total += account.payment
     end
 
-    show_bar
-    left = format(@v_char.to_s)
-    right = format("Total = $%.2f #{@v_char}", total)
-    center = @width - (left.length + right.length)
-    puts left + (" " * center).to_s + right
+	# More formatting code here
 
-    show_bar
-    validate_menu_selection(length: accounts.length, selection: selection)
   end
 
 ```
