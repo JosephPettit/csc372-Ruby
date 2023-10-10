@@ -9,7 +9,7 @@ class MenuNew < Menu
 
   def initialize(user)
     super "Bills"
-    @items = ["Utility Bill / Monthly reoccurring", "Credit Card", "Auto", "Personal", "Mortgage"]
+    @items = ["Utility Bill / Monthly reoccurring", "Credit Card", "Auto", "Personal"]
     @user = user
   end
 
@@ -24,8 +24,6 @@ class MenuNew < Menu
       bill = Auto.new
     when 4
       bill = Personal.new
-    when 5
-      bill = Mortgage.new
     end
 
     if bill

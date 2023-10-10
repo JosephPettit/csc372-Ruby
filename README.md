@@ -14,17 +14,7 @@ from the command line
 ruby Main.rb
 ```
 
-Interactive command line menu will start 
-
-### Future improvements
-
-(These are just a few ideas, we are open to suggestions or feedback)
-
-- option to edit loan
-- save data to csv / json file
-- option for multiple users
-- calculate expected pay off of credit card given balance, monthly payment and interest rate.
-- add option to pay off loan early (pay extra)
+Interactive command line menu will start
 
 ### Language feature highlights
 
@@ -44,11 +34,11 @@ instead of getter and setter functions Ruby has attribute accessors. The above e
 @term      # Instance variable (Similar to 'this' in Java)
 ```
 
-### case statements 
+### case statements
 
-Instead of switch statements, ruby uses case statements. 
+Instead of switch statements, ruby uses case statements.
 
-```ruby 
+```ruby
 # loan_menu.display returns 1-3
 # loan is then assigned based on the result
 loan = case loan_menu.display_menu
@@ -59,27 +49,27 @@ loan = case loan_menu.display_menu
     when 3
       Personal.new
     end
-``` 
+```
 
-### falsey values 
+### falsey values
 
-Like C, Ruby uses truthy and falsey values. In Ruby only false and nil evaluate to false, everything else is truthy. 
+Like C, Ruby uses truthy and falsey values. In Ruby only false and nil evaluate to false, everything else is truthy.
 
-```ruby 
+```ruby
 if loan # Checks if loan is nil 
     loan.load_values()
 end 
 ```
 
-### until loop 
+### until loop
 
-Ruby has until loops that are identical to a while loop, but runs while false. 
+Ruby has until loops that are identical to a while loop, but runs while false.
 
-```ruby 
+```ruby
 until main_menu.option == -1
     # Main menu loop
 end
-``` 
+```
 
 ### Magic Comments
 
@@ -91,36 +81,64 @@ In Ruby, special "magic" comments contain directives that change the way code is
 
 This is an example of a magic comment. This will cause Ruby to always treat two similar strings as distinct objects.
 
-### Duck Typing 
+### Duck Typing
 
 In Ruby everything is an object, and the type of object doesn't matter as long as that object has the attributes or methods needed.
 
-```ruby 
-class MenuCalc < Menu
-    def display_menu
-        puts "This is the Calc Menu"
+```ruby
+# Shows table of accounts (or no accounts if none)
+  def show_account_table(accounts, selection: false)
+    if accounts.empty?
+      show_header("no accounts")
+      validate_menu_selection(selection: false)
+      return -1
     end
-end 
 
-class MenuUser < Menu
-    def display_menu
-        puts "This is the User Menu"
+    show_header("accounts")
+    left = format("#{@v_char} %s", "Name")
+    right = format("%s #{@v_char}", "Amount")
+    center = @width - (left.length + right.length)
+    puts left + (" " * center).to_s + right
+		show_bar
+    total = 0
+
+    accounts.each_with_index do |account, index|
+      left = format("#{@v_char} %d. %s", index + 1, account.name)
+      right = format("$%.2f #{@v_char}", account.payment)
+      center = @width - (left.length + right.length)
+      puts left + (" " * center).to_s + right
+      total += account.payment
     end
-end 
 
-def who_are_you(menu)
-    menu.display_menu
-end
+    show_bar
+    left = format(@v_char.to_s)
+    right = format("Total = $%.2f #{@v_char}", total)
+    center = @width - (left.length + right.length)
+    puts left + (" " * center).to_s + right
 
-calc = MenuCalc.new
-user = MenuUser.new
-
-who_are_you(calc) 
-# This is the Calc Menu
-
-who_are_you(user)
-# This is the User Menu
+    show_bar
+    validate_menu_selection(length: accounts.length, selection: selection)
+  end
 
 ```
 
-in the example above, the function who_are_you doesn't know / care what type of object is passed in. All that matters is that it has a name attribute and the speak method. 
+In the example above, the function takes in an argument accounts which is a list of objects that can be a type of loan or a credit card. As long as the account item has a name, and payment field the function will function correctly.
+
+### Static Methods
+
+In Ruby to declare a static method, you add 'self' to the function name. For example:
+
+```Ruby
+class Calculator
+  # Calculates monthly payment for loan
+  def self.monthly_payment(loan)
+    (loan.amount * (loan.interest / 1200)) / (1 - (1 + (loan.interest / 1200))**-loan.term)
+  end
+end 
+```
+
+monthly_payment can be called without an instance of a Calculator object like so:
+
+``` Ruby
+Calculator.monthly_payment(loan)
+```

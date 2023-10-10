@@ -58,6 +58,3 @@ end
 
 class Personal < Loan
 end
-
-class Mortgage < Loan
-end
