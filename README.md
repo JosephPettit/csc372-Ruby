@@ -39,16 +39,22 @@ instead of getter and setter functions Ruby has attribute accessors. The above e
 Instead of switch statements, ruby uses case statements.
 
 ```ruby
-# loan_menu.display returns 1-3
-# loan is then assigned based on the result
-loan = case loan_menu.display_menu
-    when 1
-      Auto.new
-    when 2
-      Mortgage.new
-    when 3
-      Personal.new
-    end
+case main_menu.option
+  when 1 ##### User Menu #####
+    user_menu = MenuUser.new(@user)
+    user_menu.display_menu
+
+  when 2 ##### Finance Calc Menu #####
+    calc_menu = MenuCalc.new
+    calc_menu.display_menu
+
+  when 3 ##### Load Dummy User #####
+    load "dummy_user.rb"
+    d = Dummy.new
+    @user.accounts = d.accounts
+    main_menu.show_header("Test user loaded")
+    main_menu.validate_menu_selection(selection:false)
+  end
 ```
 
 ### falsey values
@@ -99,7 +105,7 @@ In Ruby everything is an object, and the type of object doesn't matter as long a
     right = format("%s #{@v_char}", "Amount")
     center = @width - (left.length + right.length)
     puts left + (" " * center).to_s + right
-		show_bar
+    show_bar
     total = 0
 
     accounts.each_with_index do |account, index|
